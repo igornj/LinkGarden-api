@@ -19,12 +19,15 @@ public class LinkGarden {
         this.linkUrl = linkUrl;
     }
 
-    public LinkGarden(String name, String email, String userAddress, String password, String profileImage, String linkTitle, String linkUrl) {
+    public LinkGarden(String name, String email, String userAddress, String password, String profileImage) {
         this.name = name;
         this.email = email;
         this.userAddress = userAddress;
         this.password = password;
         this.profileImage = profileImage;
+    }
+
+    public LinkGarden(String linkTitle, String linkUrl) {
         this.linkTitle = linkTitle;
         this.linkUrl = linkUrl;
     }
