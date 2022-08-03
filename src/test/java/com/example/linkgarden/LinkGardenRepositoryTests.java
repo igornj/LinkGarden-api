@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -49,17 +48,6 @@ public class LinkGardenRepositoryTests {
         Assertions.assertThat(savedUser).isNotNull();
         Assertions.assertThat(savedUser.getLinkTitle()).isEqualTo(linkGarden.getLinkTitle());
         Assertions.assertThat(savedUser.getLinkUrl()).isEqualTo(linkGarden.getLinkUrl());
-    }
-
-
-    @Test
-    public void findAll(){
-        List<LinkGarden> linkGardens = repo.findAll();
-        Assertions.assertThat(linkGardens).hasSizeGreaterThan(0);
-
-        for (LinkGarden linkGarden : linkGardens){
-            System.out.println(linkGarden);
-        }
     }
 
 
