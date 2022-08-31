@@ -57,6 +57,24 @@ public class LinkGardenController {
 
     }
 
+
+    @PostMapping("/login-user")
+    public ResponseEntity<?> loginUser(@RequestBody @Valid LinkGardenDto loginDto){
+
+        LinkGarden loginUser = new LinkGarden();
+        BeanUtils.copyProperties(loginDto, loginUser);
+
+        Optional<LinkGarden>  optionalUser = service.getUser(loginUser.getEmail(), loginUser.getPassword());
+        System.out.println(optionalUser);
+
+       if(!optionalUser.isPresent()){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ASDASDA");
+       }
+
+        return ResponseEntity.status(HttpStatus.FOUND).body("The user was logged in successfully.");
+
+    }
+
     @PutMapping("/update/{id}")
     public ResponseEntity<Object> updateGarden(@PathVariable(value = "id") UUID id, @RequestBody @Valid LinkGardenDto linkGardenDto ){
         Optional<LinkGarden> optionalLinkGarden = service.findById(id);

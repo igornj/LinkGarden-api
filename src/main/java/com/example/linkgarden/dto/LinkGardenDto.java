@@ -2,9 +2,7 @@ package com.example.linkgarden.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.UUID;
 
 public class LinkGardenDto {
     @Size(min = 2, message = "Name should have at least 2 characters")
@@ -17,6 +15,7 @@ public class LinkGardenDto {
     String userAddress;
 
     @Size(min = 6, message = "password should have at least 6 characters")
+    @NotEmpty
     String password;
 
     String profileImage;
@@ -25,10 +24,6 @@ public class LinkGardenDto {
     String linkTitle;
 
     String linkUrl;
-
-    public LinkGardenDto() {
-
-    }
 
     public String getName() {
         return name;

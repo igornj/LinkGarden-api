@@ -33,6 +33,10 @@ public class LinkGardenService {
        return repo.findById(id);
     }
 
+    public Optional<LinkGarden> getUser(String email, String password){
+        return repo.findFirstByEmailAndPassword(email, password);
+    }
+
     @Transactional
     public void deleteGarden(UUID id){
         repo.deleteGarden(id);

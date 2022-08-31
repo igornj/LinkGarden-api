@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -25,4 +26,7 @@ public interface LinkGardenRepository extends CrudRepository<LinkGarden, UUID> {
     @Modifying
     @Query(value = "DELETE FROM users WHERE id = :id", nativeQuery = true)
     void deleteUser(@Param("id") UUID id);
+
+    //@Query(value = "SELECT * FROM users WHERE email = :email AND password = :password", nativeQuery = true)
+    Optional<LinkGarden> findFirstByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 }
