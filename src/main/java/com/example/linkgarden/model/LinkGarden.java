@@ -32,6 +32,10 @@ public class LinkGarden {
         this.linkUrl = linkUrl;
     }
 
+    public LinkGarden(String email) {
+        this.email = email;
+    }
+
     public LinkGarden() {
 
     }
@@ -60,7 +64,6 @@ public class LinkGarden {
 
     @Column(name = "linkUrl", table = "links")
     String linkUrl;
-
 
 
     public UUID getId() {

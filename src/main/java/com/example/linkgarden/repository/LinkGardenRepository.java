@@ -28,5 +28,5 @@ public interface LinkGardenRepository extends CrudRepository<LinkGarden, UUID> {
     void deleteUser(@Param("id") UUID id);
 
     //@Query(value = "SELECT * FROM users WHERE email = :email AND password = :password", nativeQuery = true)
-    Optional<LinkGarden> findFirstByEmailAndPassword(@Param("email") String email, @Param("password") String password);
+    LinkGarden findFirstByEmailAndPassword(String email, String password);
 }

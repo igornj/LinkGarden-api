@@ -33,7 +33,7 @@ public class LinkGardenService {
        return repo.findById(id);
     }
 
-    public Optional<LinkGarden> getUser(String email, String password){
+    public LinkGarden getUser(String email, String password){
         return repo.findFirstByEmailAndPassword(email, password);
     }
 

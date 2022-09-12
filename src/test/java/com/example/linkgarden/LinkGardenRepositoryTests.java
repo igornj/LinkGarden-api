@@ -52,6 +52,14 @@ public class LinkGardenRepositoryTests {
 
 
     @Test
+    public void loginUser(){
+        //LinkGarden userInfo = new LinkGarden("joaquina@gmail.com", "123456");
+        LinkGarden garden = repo.findFirstByEmailAndPassword("joaquina@gmail.com", "123456");
+        Assertions.assertThat(garden).isNotNull();
+    }
+
+
+    @Test
     public void update(){
         UUID id = UUID.fromString("b0fcbe04-cdbd-4a64-bb34-ac31fac9ae58");
         LinkGarden linkGardenBody = new LinkGarden();

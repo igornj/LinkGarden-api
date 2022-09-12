@@ -6,13 +6,12 @@ import com.example.linkgarden.service.LinkGardenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -58,20 +57,20 @@ public class LinkGardenController {
     }
 
 
-    @PostMapping("/login-user")
-    public ResponseEntity<?> loginUser(@RequestBody @Valid LinkGardenDto loginDto){
+    @PostMapping(value = "/login-user", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> loginUser(@RequestBody @Valid LinkGardenDto loginBody){
 
         LinkGarden loginUser = new LinkGarden();
-        BeanUtils.copyProperties(loginDto, loginUser);
+        BeanUtils.copyProperties(loginBody, loginUser);
 
-        Optional<LinkGarden>  optionalUser = service.getUser(loginUser.getEmail(), loginUser.getPassword());
-        System.out.println(optionalUser);
+        LinkGarden garden = service.getUser(loginUser.getEmail(), loginUser.getPassword());
+        System.out.println(garden.getEmail());
 
-       if(!optionalUser.isPresent()){
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("ASDASDA");
+       if(!garden.getEmail().equals(loginBody.getEmail()) && !garden.getPassword().equals(loginBody.getPassword())){
+           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exists.");
        }
 
-        return ResponseEntity.status(HttpStatus.FOUND).body("The user was logged in successfully.");
+       return ResponseEntity.status(HttpStatus.OK).body(new LinkGarden(garden.getEmail()));
 
     }
 
