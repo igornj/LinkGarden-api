@@ -2,6 +2,7 @@ package com.example.linkgarden.controller;
 
 import com.example.linkgarden.dto.GardenDto;
 import com.example.linkgarden.dto.LinkGardenDto;
+import com.example.linkgarden.model.Garden;
 import com.example.linkgarden.model.LinkGarden;
 import com.example.linkgarden.service.LinkGardenService;
 import org.springframework.beans.BeanUtils;
@@ -43,17 +44,15 @@ public class LinkGardenController {
     public ResponseEntity<Object> createGarden(@PathVariable(value = "id") UUID id, @RequestBody @Valid GardenDto gardenDto){
 
         Optional<LinkGarden> optionalUser = service.findById(id);
-        LinkGarden garden = new LinkGarden();
+        Garden garden = new Garden();
 
         if(!optionalUser.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("An error occurred when trying to create a new Garden");
         }
 
         BeanUtils.copyProperties(gardenDto, garden);
-        optionalUser.get().setLinkTitle(garden.getLinkTitle());
-        optionalUser.get().setLinkUrl(garden.getLinkUrl());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(optionalUser.get()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.saveGarden(garden.getLinkTitle(), garden.getLinkUrl(), id));
 
     }
 
@@ -87,6 +86,18 @@ public class LinkGardenController {
         BeanUtils.copyProperties(linkGardenDto, garden);
         garden.setId(optionalLinkGarden.get().getId());
         return ResponseEntity.status(HttpStatus.OK).body(service.save(garden));
+    }
+
+
+    @GetMapping("/find-gardens/{id}")
+    public ResponseEntity<?> findGarden(@PathVariable(value = "id") UUID id){
+        Optional<List<Garden>> gardens = service.findGarden(id);
+
+        if(!gardens.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is no link garden attached to this user.");
+        }
+
+        return ResponseEntity.status(HttpStatus.FOUND).body(gardens);
     }
 
     @DeleteMapping("/deleteGarden/{id}")

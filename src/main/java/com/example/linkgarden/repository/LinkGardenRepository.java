@@ -1,5 +1,7 @@
 package com.example.linkgarden.repository;
 
+import com.example.linkgarden.dto.GardenDto;
+import com.example.linkgarden.model.Garden;
 import com.example.linkgarden.model.LinkGarden;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,15 +20,23 @@ public interface LinkGardenRepository extends CrudRepository<LinkGarden, UUID> {
     List<LinkGarden> findAll();
 
 
+    @Query(value = "SELECT link_tile and link_url FROM links WHERE link_id = :id", nativeQuery = true)
+    Optional<List<Garden>> findGarden(@Param("id") UUID id);
+
+
     @Modifying
     @Query(value = "DELETE FROM links WHERE link_id = :id", nativeQuery = true)
     void deleteGarden(@Param("id") UUID id);
+
+    @Modifying
+    @Query(value = "INSERT INTO links (link_title, link_url, link_id) VALUES (?1, ?2, ?3)", nativeQuery = true)
+    List<Garden> saveGarden(String link_title, String link_url, UUID id);
+
 
 
     @Modifying
     @Query(value = "DELETE FROM users WHERE id = :id", nativeQuery = true)
     void deleteUser(@Param("id") UUID id);
 
-    //@Query(value = "SELECT * FROM users WHERE email = :email AND password = :password", nativeQuery = true)
     LinkGarden findFirstByEmailAndPassword(String email, String password);
 }

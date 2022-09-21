@@ -1,15 +1,21 @@
-package com.example.linkgarden.dto;
+package com.example.linkgarden.model;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
 
-public class GardenDto {
-    @Size(min = 4, message = "Link title should have at least 4 characters")
+public class Garden {
     String linkTitle;
 
-    @Size(min = 8, message = "Link url should have at least 8 characters")
+
     String linkUrl;
+
+
+    public Garden(String linkTitle, String linkUrl) {
+        this.linkTitle = linkTitle;
+        this.linkUrl = linkUrl;
+    }
+
+    public Garden() {
+
+    }
 
     public String getLinkTitle() {
         return linkTitle;

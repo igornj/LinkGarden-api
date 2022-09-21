@@ -1,5 +1,6 @@
 package com.example.linkgarden.service;
 
+import com.example.linkgarden.model.Garden;
 import com.example.linkgarden.model.LinkGarden;
 import com.example.linkgarden.repository.LinkGardenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,14 @@ public class LinkGardenService {
 
     public LinkGarden getUser(String email, String password){
         return repo.findFirstByEmailAndPassword(email, password);
+    }
+
+    public List<Garden> saveGarden(String link_title, String link_url, UUID id){
+        return repo.saveGarden(link_title, link_url, id);
+    }
+
+    public Optional<List<Garden>> findGarden(UUID id){
+        return repo.findGarden(id);
     }
 
     @Transactional
