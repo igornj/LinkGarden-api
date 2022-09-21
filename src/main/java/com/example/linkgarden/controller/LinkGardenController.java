@@ -1,5 +1,6 @@
 package com.example.linkgarden.controller;
 
+import com.example.linkgarden.dto.GardenDto;
 import com.example.linkgarden.dto.LinkGardenDto;
 import com.example.linkgarden.model.LinkGarden;
 import com.example.linkgarden.service.LinkGardenService;
@@ -39,20 +40,20 @@ public class LinkGardenController {
     }
 
     @PostMapping("/create-garden/{id}")
-    public ResponseEntity<Object> createGarden(@PathVariable(value = "id") UUID id, @RequestBody @Valid LinkGardenDto gardenDto){
+    public ResponseEntity<Object> createGarden(@PathVariable(value = "id") UUID id, @RequestBody @Valid GardenDto gardenDto){
 
-        Optional<LinkGarden> optionalLinkGarden = service.findById(id);
+        Optional<LinkGarden> optionalUser = service.findById(id);
         LinkGarden garden = new LinkGarden();
 
-        if(!optionalLinkGarden.isPresent()){
+        if(!optionalUser.isPresent()){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("An error occurred when trying to create a new Garden");
         }
 
         BeanUtils.copyProperties(gardenDto, garden);
-        optionalLinkGarden.get().setLinkTitle(garden.getLinkTitle());
-        optionalLinkGarden.get().setLinkUrl(garden.getLinkUrl());
+        optionalUser.get().setLinkTitle(garden.getLinkTitle());
+        optionalUser.get().setLinkUrl(garden.getLinkUrl());
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(optionalLinkGarden.get()));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.save(optionalUser.get()));
 
     }
 
@@ -70,7 +71,7 @@ public class LinkGardenController {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exists.");
        }
 
-       return ResponseEntity.status(HttpStatus.OK).body(new LinkGarden(garden.getEmail()));
+       return ResponseEntity.status(HttpStatus.OK).body(new LinkGarden(garden.getEmail(), garden.getId()));
 
     }
 
