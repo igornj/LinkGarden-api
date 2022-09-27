@@ -2,14 +2,17 @@ package com.example.linkgarden.controller;
 
 import com.example.linkgarden.dto.GardenDto;
 import com.example.linkgarden.model.Garden;
+import com.example.linkgarden.model.User;
 import com.example.linkgarden.service.GardenService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,15 +52,15 @@ public class GardenController {
     }
 
 
-    @GetMapping("/find-gardens/{userEmail}")
+    @GetMapping(value = "/find-gardens/{userEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findGardens(@PathVariable(value = "userEmail")  String userEmail){
-        Optional<List<Garden>> gardens = service.findGardens(userEmail);
+        Optional<List<Garden>> optionalGardens = service.findGardens(userEmail);
 
-        if(!gardens.isPresent()){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("There is no link garden attached to this user.");
+        if(!optionalGardens.isPresent()){
+            return new ResponseEntity<Object>("There is no link garden attached to this user.", HttpStatus.NOT_FOUND);
         }
 
-        return ResponseEntity.status(HttpStatus.FOUND).body(gardens);
+        return new ResponseEntity<Object>(optionalGardens, HttpStatus.OK);
     }
 
 

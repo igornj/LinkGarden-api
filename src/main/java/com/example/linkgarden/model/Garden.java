@@ -69,4 +69,14 @@ public class Garden {
     public void setLinkUrl(String linkUrl) {
         this.linkUrl = linkUrl;
     }
+
+    @Override
+    public String toString() {
+        return "Garden{" +
+                "id=" + id +
+                ", userEmail='" + userEmail + '\'' +
+                ", linkTitle='" + linkTitle + '\'' +
+                ", linkUrl='" + linkUrl + '\'' +
+                '}';
+    }
 }
