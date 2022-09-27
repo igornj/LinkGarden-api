@@ -1,8 +1,7 @@
 package com.example.linkgarden.repository;
 
-import com.example.linkgarden.dto.GardenDto;
 import com.example.linkgarden.model.Garden;
-import com.example.linkgarden.model.LinkGarden;
+import com.example.linkgarden.model.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -14,13 +13,13 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface LinkGardenRepository extends CrudRepository<LinkGarden, UUID> {
+public interface UserRepository extends CrudRepository<User, UUID> {
 
     @Query(value = "SELECT * FROM users INNER JOIN links ON users.id=links.link_id;", nativeQuery = true)
-    List<LinkGarden> findAll();
+    List<User> findAll();
 
 
-    @Query(value = "SELECT link_tile and link_url FROM links WHERE link_id = :id", nativeQuery = true)
+    @Query(value = "SELECT link_title and link_url FROM links WHERE link_id = :id", nativeQuery = true)
     Optional<List<Garden>> findGarden(@Param("id") UUID id);
 
 
@@ -38,5 +37,5 @@ public interface LinkGardenRepository extends CrudRepository<LinkGarden, UUID> {
     @Query(value = "DELETE FROM users WHERE id = :id", nativeQuery = true)
     void deleteUser(@Param("id") UUID id);
 
-    LinkGarden findFirstByEmailAndPassword(String email, String password);
+    Optional<User> findFirstByEmailAndPassword(String email, String password);
 }

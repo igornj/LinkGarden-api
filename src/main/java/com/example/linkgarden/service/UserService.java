@@ -1,8 +1,8 @@
 package com.example.linkgarden.service;
 
 import com.example.linkgarden.model.Garden;
-import com.example.linkgarden.model.LinkGarden;
-import com.example.linkgarden.repository.LinkGardenRepository;
+import com.example.linkgarden.model.User;
+import com.example.linkgarden.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,28 +13,28 @@ import java.util.UUID;
 
 
 @Service
-public class LinkGardenService {
+public class UserService {
 
-    private final LinkGardenRepository repo;
+    private final UserRepository repo;
     @Autowired
-    LinkGardenService(LinkGardenRepository linkGardenRepository){
-        this.repo = linkGardenRepository;
+    UserService(UserRepository userRepository){
+        this.repo = userRepository;
     }
 
 
-    public LinkGarden save(LinkGarden linkGarden){
-        return repo.save(linkGarden);
+    public User save(User user){
+        return repo.save(user);
     }
 
-    public List<LinkGarden> getGardens(){
+    public List<User> getGardens(){
         return repo.findAll();
     }
 
-    public Optional<LinkGarden> findById(UUID id) {
+    public Optional<User> findById(UUID id) {
        return repo.findById(id);
     }
 
-    public LinkGarden getUser(String email, String password){
+    public Optional<User> getUser(String email, String password){
         return repo.findFirstByEmailAndPassword(email, password);
     }
 

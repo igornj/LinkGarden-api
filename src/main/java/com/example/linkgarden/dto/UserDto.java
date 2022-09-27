@@ -4,7 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
-public class LinkGardenDto {
+public class UserDto {
     @Size(min = 2, message = "Name should have at least 2 characters")
     String name;
 
