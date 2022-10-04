@@ -76,16 +76,16 @@ public class UserRepositoryTests {
 //    }
 //
 
-    @Test
-    public void deleteGarden(){
-        UUID uuid = UUID.fromString("a7276180-bfce-48ea-a502-e2bbf40c043d");
-        repo.deleteGarden(uuid);
-
-    }
-
-    @Test
-    public void deleteUser(){
-        UUID uuid = UUID.fromString("b0fcbe04-cdbd-4a64-bb34-ac31fac9ae58");
-        repo.deleteUser(uuid);
-    }
+//    @Test
+//    public void deleteGarden(){
+//        String email = "igornj@dale.com";
+//        repo.del(uuid);
+//
+//    }
+//
+//    @Test
+//    public void deleteUser(){
+//        UUID uuid = UUID.fromString("b0fcbe04-cdbd-4a64-bb34-ac31fac9ae58");
+//        repo.deleteUser(uuid);
+//    }
 }

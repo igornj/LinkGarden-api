@@ -6,6 +6,7 @@ import com.example.linkgarden.repository.GardenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,12 +28,11 @@ public class GardenService {
 
 
 
-    public void save(Garden garden) {
+    public void saveGarden(Garden garden) {
         repo.save(garden);
     }
 
-
-
+    @Transactional
     public void deleteGarden(Integer id) {
         repo.deleteById(id);
     }

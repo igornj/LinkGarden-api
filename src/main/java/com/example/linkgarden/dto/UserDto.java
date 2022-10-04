@@ -9,6 +9,7 @@ public class UserDto {
     String name;
 
     @Email
+    @NotEmpty
     String email;
 
     @Size(min = 3, message = "userAddress should have at least 2 characters along with @")

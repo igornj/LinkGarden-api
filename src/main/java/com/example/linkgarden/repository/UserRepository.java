@@ -15,27 +15,11 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends CrudRepository<User, UUID> {
 
-    @Query(value = "SELECT * FROM users INNER JOIN links ON users.id=links.link_id;", nativeQuery = true)
-    List<User> findAll();
-
-
-    @Query(value = "SELECT link_title and link_url FROM links WHERE link_id = :id", nativeQuery = true)
-    Optional<List<Garden>> findGarden(@Param("id") UUID id);
-
-
-    @Modifying
-    @Query(value = "DELETE FROM links WHERE link_id = :id", nativeQuery = true)
-    void deleteGarden(@Param("id") UUID id);
-
-    @Modifying
-    @Query(value = "INSERT INTO links (link_title, link_url, link_id) VALUES (?1, ?2, ?3)", nativeQuery = true)
-    List<Garden> saveGarden(String link_title, String link_url, UUID id);
-
-
-
-    @Modifying
-    @Query(value = "DELETE FROM users WHERE id = :id", nativeQuery = true)
-    void deleteUser(@Param("id") UUID id);
+    Optional<User> findByEmail(String email);
 
     Optional<User> findFirstByEmailAndPassword(String email, String password);
+
+    @Modifying
+    @Query(value = "DELETE FROM users WHERE email = :email", nativeQuery = true)
+    void deleteUser(@Param("email") String email);
 }

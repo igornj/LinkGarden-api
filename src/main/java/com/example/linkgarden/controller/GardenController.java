@@ -33,9 +33,20 @@ public class GardenController {
         Garden garden = new Garden();
         BeanUtils.copyProperties(gardenDto, garden);
 
-        service.save(garden);
+        service.saveGarden(garden);
         return ResponseEntity.status(HttpStatus.CREATED).body(garden);
 
+    }
+
+    @GetMapping(value = "/find-gardens/{userEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findGardens(@PathVariable(value = "userEmail")  String userEmail){
+        Optional<List<Garden>> optionalGardens = service.findGardens(userEmail);
+
+        if(!optionalGardens.isPresent()){
+            return new ResponseEntity<Object>("There is no link garden attached to this user.", HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<Object>(optionalGardens.get(), HttpStatus.OK);
     }
 
 
@@ -48,19 +59,8 @@ public class GardenController {
         }
 
         BeanUtils.copyProperties(gardenDto, optionalLinkGarden);
+        service.saveGarden(optionalLinkGarden.get());
         return ResponseEntity.status(HttpStatus.OK).body("The Garden was updated.");
-    }
-
-
-    @GetMapping(value = "/find-gardens/{userEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findGardens(@PathVariable(value = "userEmail")  String userEmail){
-        Optional<List<Garden>> optionalGardens = service.findGardens(userEmail);
-
-        if(!optionalGardens.isPresent()){
-            return new ResponseEntity<Object>("There is no link garden attached to this user.", HttpStatus.NOT_FOUND);
-        }
-
-        return new ResponseEntity<Object>(optionalGardens, HttpStatus.OK);
     }
 
 
