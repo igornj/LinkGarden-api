@@ -11,103 +11,91 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    UUID id;
+    private UUID id;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "email")
-    String email;
+    private String email;
 
     @Column(name = "userAddress")
-    String userAddress;
+    private String userAddress;
 
     @Column(name = "password")
-    String password;
+    private String password;
 
     @Column(name = "profileImage")
-    String profileImage;
+    private String profileImage;
 
 
-    public User() {
+    public User() {}
 
-    }
+    public User(User user) {}
 
-    public User(UUID id, String name, String email, String userAddress, String password, String profileImage, String linkTitle, String linkUrl) {
+
+    public User id(UUID id){
         this.id = id;
+        return this;
+    }
+
+    public User name(String name){
         this.name = name;
+        return this;
+    }
+
+    public User email(String email){
         this.email = email;
+        return this;
+    }
+
+    public User userAddress(String userAddress){
         this.userAddress = userAddress;
+        return this;
+    }
+
+    public User password(String password){
         this.password = password;
+        return this;
+    }
+
+    public User profileImage(String profileImage){
         this.profileImage = profileImage;
+        return this;
     }
 
-    public User(String name, String email, String userAddress, String password, String profileImage) {
-        this.name = name;
-        this.email = email;
-        this.userAddress = userAddress;
-        this.password = password;
-        this.profileImage = profileImage;
+    public User build() {
+        return new User(this);
     }
-
-
-    public User(String email) {
-        this.email = email;
-    }
-
-    public User(String email, UUID id) {
-        this.email = email;
-        this.id = id;
-    }
-
 
 
     public UUID getId() {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public String getUserAddress() {
         return userAddress;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
-    }
 
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getProfileImage() {
         return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
     }
 
 

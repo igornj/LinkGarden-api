@@ -38,7 +38,12 @@ public class UserController {
             return new ResponseEntity<>("User with email: " + userEmail + " does not exist", HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Object>(optionalUser.get(), HttpStatus.OK);
+        return new ResponseEntity<Object>(new User()
+                .name(optionalUser.get().getName())
+                .email(optionalUser.get().getEmail())
+                .userAddress(optionalUser.get().getUserAddress())
+                .password(optionalUser.get().getPassword())
+                .profileImage(optionalUser.get().getProfileImage()).build(), HttpStatus.OK);
     }
 
 
@@ -51,7 +56,7 @@ public class UserController {
            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exists.");
        }
 
-       return ResponseEntity.status(HttpStatus.OK).body(new User(optionalUser.get().getEmail(), optionalUser.get().getId()));
+       return ResponseEntity.status(HttpStatus.OK).body(new User().email(optionalUser.get().getEmail()).id(optionalUser.get().getId()));
 
     }
 

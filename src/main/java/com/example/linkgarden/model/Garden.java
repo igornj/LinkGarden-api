@@ -12,63 +12,57 @@ public class Garden {
     private Integer id;
 
     @Column(name = "userEmail")
-    String userEmail;
+    private String userEmail;
 
     @Column(name = "linkTitle")
-    String linkTitle;
+    private String linkTitle;
 
     @Column(name = "linkUrl")
-    String linkUrl;
+    private String linkUrl;
 
 
-    public Garden() {
+    public Garden() {}
 
+    public Garden(Garden garden){}
+
+    public Garden id(Integer id){
+        this.id = id;
+        return this;
     }
 
-    public Garden(String userEmail, String linkTitle, String linkUrl) {
+    public Garden userEmail(String userEmail){
         this.userEmail = userEmail;
-        this.linkTitle = linkTitle;
-        this.linkUrl = linkUrl;
+        return this;
     }
 
-    public Garden(String linkTitle, String linkUrl) {
+    public Garden linkTitle(String linkTitle){
         this.linkTitle = linkTitle;
-        this.linkUrl = linkUrl;
+        return this;
     }
 
+    public Garden linkUrl(String linkUrl){
+        this.linkUrl = linkUrl;
+        return this;
+    }
+
+    public Garden build(){
+        return new Garden(this);
+    }
 
 
     public String getUserEmail() {
         return userEmail;
     }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
     public Integer getId() {
         return id;
     }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getLinkTitle() {
         return linkTitle;
     }
-
-    public void setLinkTitle(String linkTitle) {
-        this.linkTitle = linkTitle;
-    }
-
     public String getLinkUrl() {
         return linkUrl;
     }
 
-    public void setLinkUrl(String linkUrl) {
-        this.linkUrl = linkUrl;
-    }
 
     @Override
     public String toString() {

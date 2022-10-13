@@ -22,15 +22,15 @@ public class UserRepositoryTests {
     @Autowired
     UserRepository repo;
 
-    @Test
-    public void createUser(){
-        User user = new User("test2","asda@hotmail.com", "@aagoasdasrnj",
-                "123", "image/somethin");
-
-        User savedUser = repo.save(user);
-
-        Assertions.assertThat(savedUser).isNotNull();
-    }
+//    @Test
+//    public void createUser(){
+//        User user = new User("test2","asda@hotmail.com", "@aagoasdasrnj",
+//                "123", "image/somethin");
+//
+//        User savedUser = repo.save(user);
+//
+//        Assertions.assertThat(savedUser).isNotNull();
+//    }
 
 
 //    @Test
