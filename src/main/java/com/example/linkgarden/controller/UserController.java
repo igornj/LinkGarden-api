@@ -52,12 +52,10 @@ public class UserController {
 
         Optional<User> optionalUser = service.loginUser(userDto.getEmail(), userDto.getPassword());
 
-       if(!optionalUser.isPresent() && !optionalUser.get().getEmail().equals(userDto.getEmail()) && !optionalUser.get().getPassword().equals(userDto.getPassword())){
-           return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exists.");
+       if(optionalUser.isPresent() && optionalUser.get().getEmail().equals(userDto.getEmail()) && optionalUser.get().getPassword().equals(userDto.getPassword())){
+           return ResponseEntity.status(HttpStatus.OK).body(new User().email(optionalUser.get().getEmail()).id(optionalUser.get().getId()));
        }
-
-       return ResponseEntity.status(HttpStatus.OK).body(new User().email(optionalUser.get().getEmail()).id(optionalUser.get().getId()));
-
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exists.");
     }
 
 
