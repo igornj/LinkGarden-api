@@ -38,12 +38,14 @@ public class UserController {
             return new ResponseEntity<>("User with email: " + userEmail + " does not exist", HttpStatus.NOT_FOUND);
         }
 
-        return new ResponseEntity<Object>(new User()
+        User userInfo = new User()
                 .name(optionalUser.get().getName())
                 .email(optionalUser.get().getEmail())
                 .userAddress(optionalUser.get().getUserAddress())
                 .password(optionalUser.get().getPassword())
-                .profileImage(optionalUser.get().getProfileImage()).build(), HttpStatus.OK);
+                .profileImage(optionalUser.get().getProfileImage());
+
+        return new ResponseEntity<Object>(userInfo, HttpStatus.OK);
     }
 
 
